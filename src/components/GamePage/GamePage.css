@@ -1,0 +1,101 @@
+.game-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 50px 20px;
+  overflow-x: hidden;
+  background: #090a0f;
+  display: flex;
+  justify-content: center;
+}
+
+.game-content {
+  z-index: 10;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  text-align: center;
+}
+
+.game-instruction {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #ffffffd0;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 3rem;
+  transition: transform 0.5s ease;
+}
+
+.game-grid.won {
+  transform: scale(0.9);
+  opacity: 0.7;
+}
+
+/* Victory Section */
+.victory-message {
+  text-align: center;
+  background: rgba(15, 12, 41, 0.9);
+  padding: 30px;
+  border-radius: 20px;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  animation: celebrate 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes celebrate {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.victory-message h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.victory-message p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+/* Responsive Grid */
+@media (max-width: 600px) {
+  .game-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 3rem;
+  }
+  .game-instruction {
+    font-size: 1rem;
+  }
+  .victory-message h3 {
+    font-size: 2.5rem;
+  }
+}
