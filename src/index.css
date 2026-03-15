@@ -13,7 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-dark);
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 * {

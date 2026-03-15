@@ -1,104 +1,167 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './GamePage.css';
-import MemoryCard from './MemoryCard';
 import StarsBackground from '../Background/StarsBackground';
 
-const cardSymbols = ['🌙', '🕌', '🕯️', '🎁', '📅', '📿'];
-
-interface Card {
+interface GameItem {
   id: number;
+  x: number;
+  y: number;
   symbol: string;
-  matched: boolean;
+  speed: number;
 }
 
 interface GamePageProps {
   onNext: () => void;
 }
 
+const symbols = ['🌙', '🏮', '🎁', '🍬', '✨', '🕌'];
+const GAME_HEIGHT = 500;
+const TRAY_WIDTH = 120;
+const TRAY_HEIGHT = 60;
+const ITEM_SIZE = 40;
+const WIN_SCORE = 100;
+
 const GamePage: React.FC<GamePageProps> = ({ onNext }) => {
-  const [cards, setCards] = useState<Card[]>([]);
-  const [choiceOne, setChoiceOne] = useState<Card | null>(null);
-  const [choiceTwo, setChoiceTwo] = useState<Card | null>(null);
-  const [disabled, setDisabled] = useState(false);
-  const [pairsFound, setPairsFound] = useState(0);
+  const [score, setScore] = useState(0);
+  const [items, setItems] = useState<GameItem[]>([]);
+  const [basketX, setBasketX] = useState(50); // percentage
+  const [isWon, setIsWon] = useState(false);
+  const gameAreaRef = useRef<HTMLDivElement>(null);
+  const requestRef = useRef<number>();
+  const lastTimeRef = useRef<number>();
 
-  // Shuffle cards
-  const shuffleCards = useCallback(() => {
-    const shuffled = [...cardSymbols, ...cardSymbols]
-      .sort(() => Math.random() - 0.5)
-      .map((symbol, index) => ({ id: index, symbol, matched: false }));
-
-    setCards(shuffled);
-    setChoiceOne(null);
-    setChoiceTwo(null);
-    setPairsFound(0);
-    setDisabled(false);
+  const spawnItem = useCallback(() => {
+    const newItem: GameItem = {
+      id: Date.now() + Math.random(),
+      x: Math.random() * 90 + 5, // 5% to 95%
+      y: -50,
+      symbol: symbols[Math.floor(Math.random() * symbols.length)],
+      speed: Math.random() * 2 + 2,
+    };
+    setItems((prev) => [...prev, newItem]);
   }, []);
 
-  // Handle choice
-  const handleChoice = (card: Card) => {
-    if (card.id === choiceOne?.id || card.matched) return;
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
-  };
+  const updateItems = useCallback((time: number) => {
+    if (lastTimeRef.current !== undefined) {
+      setItems((prev) => {
+        const nextItems = prev.map((item) => ({
+          ...item,
+          y: item.y + item.speed,
+        }));
 
-  // Compare two cards
-  useEffect(() => {
-    if (choiceOne && choiceTwo) {
-      setDisabled(true);
-      if (choiceOne.symbol === choiceTwo.symbol) {
-        setCards((prev) =>
-          prev.map((card) =>
-            card.symbol === choiceOne.symbol ? { ...card, matched: true } : card
-          )
-        );
-        setPairsFound((prev) => prev + 1);
-        resetTurn();
-      } else {
-        setTimeout(() => resetTurn(), 1000);
-      }
+        // Collision detection and cleanup
+        const filteredItems = nextItems.filter((item) => {
+          // Check collision with tray
+          const trayY = GAME_HEIGHT - TRAY_HEIGHT;
+          const itemInTrayY = item.y + ITEM_SIZE >= trayY && item.y <= GAME_HEIGHT;
+          
+          const trayXStart = basketX - (TRAY_WIDTH / (gameAreaRef.current?.clientWidth || 1) * 100) / 2;
+          const trayXEnd = basketX + (TRAY_WIDTH / (gameAreaRef.current?.clientWidth || 1) * 100) / 2;
+          const itemInTrayX = item.x >= trayXStart && item.x <= trayXEnd;
+
+          if (itemInTrayY && itemInTrayX) {
+            setScore((s) => s + 10);
+            return false;
+          }
+
+          // Remove if off screen
+          return item.y < GAME_HEIGHT + 50;
+        });
+
+        return filteredItems;
+      });
     }
-  }, [choiceOne, choiceTwo]);
+    lastTimeRef.current = time;
+    if (!isWon) {
+      requestRef.current = requestAnimationFrame(updateItems);
+    }
+  }, [basketX, isWon]);
 
-  const resetTurn = () => {
-    setChoiceOne(null);
-    setChoiceTwo(null);
-    setDisabled(false);
-  };
-
-  // Initial shuffle
+  // Game loop
   useEffect(() => {
-    shuffleCards();
-  }, [shuffleCards]);
+    requestRef.current = requestAnimationFrame(updateItems);
+    const spawner = setInterval(spawnItem, 1500);
 
-  const isGameWon = pairsFound === cardSymbols.length;
+    return () => {
+      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      clearInterval(spawner);
+    };
+  }, [updateItems, spawnItem]);
+
+  // Check win condition
+  useEffect(() => {
+    if (score >= WIN_SCORE) {
+      setIsWon(true);
+    }
+  }, [score]);
+
+  // Controls
+  const handleMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (gameAreaRef.current && !isWon) {
+      const rect = gameAreaRef.current.getBoundingClientRect();
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const x = ((clientX - rect.left) / rect.width) * 100;
+      setBasketX(Math.max(5, Math.min(95, x)));
+    }
+  };
 
   return (
     <div className="game-container">
       <StarsBackground />
 
       <div className="game-content">
-        <h2 className="game-title">Eid Memory Match</h2>
-        <p className="game-instruction">Find all matching pairs to reveal a surprise!</p>
+        <h2 className="game-title">Eid Gift Catcher</h2>
+        <p className="game-instruction">
+          Catch {WIN_SCORE / 10} gifts on the golden tray to unlock the surprise!
+        </p>
 
-        <div className={`game-grid ${isGameWon ? 'won' : ''}`}>
-          {cards.map((card) => (
-            <MemoryCard
-              key={card.id}
-              card={card}
-              flipped={card === choiceOne || card === choiceTwo || card.matched}
-              onClick={handleChoice}
-              disabled={disabled || isGameWon}
-            />
-          ))}
+        <div className="score-board">
+          Score: <span className="score-value">{score}</span> / {WIN_SCORE}
         </div>
 
-        {isGameWon && (
-          <div className="victory-message">
-            <h3>Fantastic! Mubarak!</h3>
-            <p>You've found all the matching Eid symbols.</p>
-            <button className="next-button" onClick={onNext}>
-              Next Surprise
-            </button>
+        <div 
+          className="game-area" 
+          ref={gameAreaRef} 
+          onMouseMove={handleMove}
+          onTouchMove={handleMove}
+          style={{ height: GAME_HEIGHT }}
+        >
+          {items.map((item) => (
+            <div
+              key={item.id}
+              className="falling-item"
+              style={{
+                left: `${item.x}%`,
+                top: `${item.y}px`,
+              }}
+            >
+              {item.symbol}
+            </div>
+          ))}
+
+          <div 
+            className="tray"
+            style={{ 
+              left: `${basketX}%`,
+              width: TRAY_WIDTH,
+              height: TRAY_HEIGHT,
+              bottom: 0
+            }}
+          >
+            <div className="tray-base"></div>
+            <div className="tray-detail"></div>
+          </div>
+        </div>
+
+        {isWon && (
+          <div className="victory-overlay">
+            <div className="victory-card">
+              <h3>Mubarak! 🎊</h3>
+              <p>You caught enough gifts for the celebration!</p>
+              <button className="next-button highlight" onClick={onNext}>
+                Next Surprise
+              </button>
+            </div>
           </div>
         )}
       </div>

@@ -1,101 +1,117 @@
-.game-container {
+.game-area {
   position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  padding: 50px 20px;
-  overflow-x: hidden;
-  background: #090a0f;
-  display: flex;
-  justify-content: center;
-}
-
-.game-content {
-  z-index: 10;
-  max-width: 800px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.game-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 4rem;
-  color: #ffd700;
-  margin-bottom: 0.5rem;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  text-align: center;
-}
-
-.game-instruction {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  color: #ffffffd0;
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
   width: 100%;
   max-width: 600px;
-  margin-bottom: 3rem;
-  transition: transform 0.5s ease;
-}
-
-.game-grid.won {
-  transform: scale(0.9);
-  opacity: 0.7;
-}
-
-/* Victory Section */
-.victory-message {
-  text-align: center;
-  background: rgba(15, 12, 41, 0.9);
-  padding: 30px;
+  background: rgba(15, 12, 41, 0.4);
+  border: 2px solid rgba(255, 215, 0, 0.2);
   border-radius: 20px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-  animation: celebrate 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: none;
+  touch-action: none;
 }
 
-@keyframes celebrate {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.victory-message h3 {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: #ffd700;
-  margin-bottom: 10px;
-}
-
-.victory-message p {
+.score-board {
   font-family: 'Playfair Display', serif;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   color: #fff;
   margin-bottom: 20px;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 10px 25px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
-/* Responsive Grid */
-@media (max-width: 600px) {
-  .game-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
+.score-value {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.falling-item {
+  position: absolute;
+  font-size: 2.5rem;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tray {
+  position: absolute;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.tray-base {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(135deg, #ffd700 0%, #daa520 100%);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.tray-detail {
+  position: absolute;
+  bottom: 40%;
+  width: 100%;
+  height: 20%;
+  background: #daa520;
+  border-radius: 50%;
+  border: 2px solid #ffd700;
+}
+
+/* Victory Overlay */
+.victory-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(9, 10, 15, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.5s ease;
+}
+
+.victory-card {
+  background: rgba(15, 12, 41, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid #ffd700;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  max-width: 90%;
+}
+
+.victory-card h3 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: #ffd700;
+  margin-bottom: 15px;
+}
+
+.victory-card p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 25px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (max-width: 480px) {
-  .game-title {
-    font-size: 3rem;
+  .game-area {
+    height: 400px !important;
   }
-  .game-instruction {
-    font-size: 1rem;
-  }
-  .victory-message h3 {
-    font-size: 2.5rem;
+  .falling-item {
+    font-size: 1.8rem;
   }
 }
