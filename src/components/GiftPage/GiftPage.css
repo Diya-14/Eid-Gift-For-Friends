@@ -17,70 +17,38 @@
 .gift-page-content {
   z-index: 20;
   text-align: center;
-  width: 90%;
+  width: 95%;
   max-width: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  justify-content: center; /* Ensure internal content is centered */
+  min-height: 80vh; /* Give it enough room to breathe */
+  gap: 20px;
 }
 
 .gift-title {
   font-family: 'Great Vibes', cursive;
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: #ffd700;
   text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
-  margin: 0;
+  margin: 0 0 10px 0;
   animation: float-title 3s ease-in-out infinite;
 }
 
-@keyframes float-title {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.instruction-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  color: #fff;
-  opacity: 0.8;
-  margin: 10px 0;
-  letter-spacing: 1px;
-}
-
-/* Festive Banner */
-.festive-banner {
-  position: absolute;
-  top: 0;
-  background: linear-gradient(180deg, #ffd700 0%, #daa520 100%);
-  color: #004d40;
-  padding: 15px 60px;
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  font-weight: bold;
-  border-radius: 0 0 30px 30px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-  z-index: 30;
-  animation: slide-down 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes slide-down {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
-}
-
-/* Grand Reveal Section */
+/* Grand Reveal Section - Centered Focus */
 .grand-reveal {
   opacity: 0;
-  transform: scale(0.8) translateY(20px);
+  transform: scale(0.8) translateY(30px);
   transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition-delay: 0.5s;
-  background: rgba(0, 77, 64, 0.6);
-  padding: 30px;
-  border-radius: 30px;
+  background: rgba(0, 77, 64, 0.7);
+  padding: 40px;
+  border-radius: 40px;
   border: 2px solid #ffd700;
-  box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 60px rgba(255, 215, 0, 0.2);
   pointer-events: none;
+  margin: 10px 0;
 }
 
 .grand-reveal.show {
@@ -88,105 +56,29 @@
   transform: scale(1) translateY(0);
 }
 
-.reveal-icons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.big-icon {
-  font-size: 3.5rem;
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-}
-
-.big-icon.featured {
-  font-size: 5rem;
-  animation: pulse-icon 2s infinite;
-}
-
-@keyframes pulse-icon {
-  0%, 100% { transform: scale(1); filter: brightness(1); }
-  50% { transform: scale(1.2); filter: brightness(1.3); }
-}
-
-.grand-wish-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3.2rem;
-  background: linear-gradient(to right, #ffd700, #fff, #ffd700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-}
-
-.grand-wish-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.25rem;
-  color: #fff;
-  line-height: 1.6;
-  margin: 15px 0 0;
-  max-width: 600px;
-}
-
 .box-container {
-  height: 250px;
+  height: 200px; /* Reduced height to keep message closer to center */
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 20px;
 }
 
-/* Finale Actions */
-.finale-actions {
-  opacity: 0;
-  animation: fadeIn 1s forwards;
-  animation-delay: 1.5s;
-}
-
-.sub-wish {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.2rem;
-  color: #ffd700;
-  margin-bottom: 25px;
-}
-
-.finish-btn.trophy {
-  padding: 18px 55px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #004d40;
-  background: linear-gradient(135deg, #ffd700 0%, #ffea00 100%);
-  border: none;
-  border-radius: 60px;
-  cursor: pointer;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-  transition: all 0.3s ease;
-  font-family: 'Playfair Display', serif;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.finish-btn.trophy:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 15px 45px rgba(255, 215, 0, 0.8);
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .gift-title { font-size: 3rem; }
-  .grand-wish-title { font-size: 2.5rem; }
-  .festive-banner { font-size: 2.2rem; padding: 10px 40px; }
+  .gift-title { font-size: 2.8rem; }
+  .grand-wish-title { font-size: 2.2rem; }
+  .grand-reveal { padding: 25px; }
+  .festive-banner { font-size: 2rem; padding: 10px 30px; }
 }
 
 @media (max-width: 480px) {
-  .gift-title { font-size: 2.5rem; }
-  .grand-wish-title { font-size: 2.2rem; }
-  .grand-wish-text { font-size: 1rem; }
-  .big-icon { font-size: 2.5rem; }
-  .big-icon.featured { font-size: 3.5rem; }
-  .box-container { height: 200px; }
-  .festive-banner { font-size: 1.8rem; }
+  .gift-page-content { gap: 10px; min-height: 90vh; }
+  .gift-title { font-size: 2.2rem; }
+  .grand-wish-title { font-size: 1.8rem; }
+  .grand-wish-text { font-size: 0.95rem; }
+  .big-icon { font-size: 2rem; }
+  .big-icon.featured { font-size: 3rem; }
+  .box-container { height: 160px; }
+  .festive-banner { font-size: 1.5rem; }
 }
