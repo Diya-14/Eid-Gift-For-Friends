@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
 import WelcomePage from './components/WelcomePage/WelcomePage';
 import GalleryPage from './components/GalleryPage/GalleryPage';
+import MessagePage from './components/MessagePage/MessagePage';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'welcome' | 'gallery'>('welcome');
+  const [currentPage, setCurrentPage] = useState<'welcome' | 'gallery' | 'message'>('welcome');
 
   const goToGallery = () => {
     setCurrentPage('gallery');
   };
 
-  const goToNextSurprise = () => {
-    // Placeholder for future next surprise
-    console.log("Navigating to next surprise...");
+  const goToMessage = () => {
+    setCurrentPage('message');
   };
 
   return (
     <div className="App">
-      {currentPage === 'welcome' ? (
-        <WelcomePage onNext={goToGallery} />
-      ) : (
-        <GalleryPage onNext={goToNextSurprise} />
-      )}
+      {currentPage === 'welcome' && <WelcomePage onNext={goToGallery} />}
+      {currentPage === 'gallery' && <GalleryPage onNext={goToMessage} />}
+      {currentPage === 'message' && <MessagePage />}
     </div>
   );
 }
