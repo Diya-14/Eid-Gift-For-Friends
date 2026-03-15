@@ -18,10 +18,17 @@ const GiftPage: React.FC = () => {
       {isOpen && <Fireworks />}
       
       <div className="gift-page-content">
-        <h1 className="gift-title">Your Eid Surprise!</h1>
+        <h1 className="gift-title">The Final Surprise!</h1>
         <p className="gift-subtitle">
-          {isOpen ? "Mubarak! You found your Virtual Eidi! ✨" : "Click the gift box to open your surprise..."}
+          {isOpen ? "Mubarak! Here is your Virtual Eidi ✨" : "Click the gift box below to receive your surprise..."}
         </p>
+
+        {/* Revealed Content (Visible ONLY when isOpen) */}
+        <div className={`revealed-reward ${isOpen ? 'show' : ''}`}>
+          <div className="eidi-icon">💰</div>
+          <h2 className="reward-text">Special Eidi For You!</h2>
+          <p className="reward-subtext">May your life be filled with prosperity and endless joy.</p>
+        </div>
 
         <div className="box-container">
           <GiftBox isOpen={isOpen} onClick={() => setIsOpen(true)} />
@@ -29,8 +36,8 @@ const GiftPage: React.FC = () => {
 
         {isOpen && (
           <div className="final-actions">
-            <h2 className="final-wish">May this Eid bring you endless joy and prosperity!</h2>
-            <button className="finish-button" onClick={handleFinish}>
+            <h3 className="final-wish-text">Mubarak to you and your family!</h3>
+            <button className="finish-btn highlight" onClick={handleFinish}>
               Finish the Eid Journey
             </button>
           </div>

@@ -8,33 +8,26 @@ interface GiftBoxProps {
 
 const GiftBox: React.FC<GiftBoxProps> = ({ isOpen, onClick }) => {
   return (
-    <div className={`gift-box-wrapper ${isOpen ? 'open' : ''}`} onClick={onClick}>
-      <div className="gift-box">
-        {/* Box Lid */}
-        <div className="box-lid">
-          <div className="lid-part lid-top"></div>
-          <div className="lid-part lid-front"></div>
-          <div className="lid-part lid-back"></div>
-          <div className="lid-part lid-left"></div>
-          <div className="lid-part lid-right"></div>
-          <div className="ribbon-bow"></div>
-        </div>
-        
+    <div className={`svg-gift-container ${isOpen ? 'open' : ''}`} onClick={onClick}>
+      <svg width="200" height="200" viewBox="0 0 200 200" className="gift-svg">
         {/* Box Body */}
-        <div className="box-body">
-          <div className="box-part box-front"></div>
-          <div className="box-part box-back"></div>
-          <div className="box-part box-left"></div>
-          <div className="box-part box-right"></div>
-          <div className="box-part box-bottom"></div>
-        </div>
-
-        {/* Gift Reveal Content */}
-        <div className="gift-reveal">
-          <div className="eidi-coin">🎁</div>
-          <div className="reveal-text">Special Eidi for You</div>
-        </div>
-      </div>
+        <rect x="40" y="80" width="120" height="100" fill="#ff4500" stroke="#ffd700" strokeWidth="3" rx="5" />
+        <rect x="90" y="80" width="20" height="100" fill="#ffd700" /> {/* Vertical Ribbon */}
+        
+        {/* Box Lid */}
+        <g className="gift-lid">
+          <rect x="30" y="60" width="140" height="30" fill="#ff4500" stroke="#ffd700" strokeWidth="3" rx="3" />
+          <rect x="90" y="60" width="20" height="30" fill="#ffd700" /> {/* Ribbon on Lid */}
+          
+          {/* Bow (Simple SVG Path) */}
+          <path d="M70 60 C 70 30, 90 30, 100 60 C 110 30, 130 30, 130 60" fill="none" stroke="#ffd700" strokeWidth="5" strokeLinecap="round" />
+        </g>
+      </svg>
+      
+      {/* Sparkles (Always around the box) */}
+      <div className="sparkle s1">✨</div>
+      <div className="sparkle s2">✨</div>
+      <div className="sparkle s3">✨</div>
     </div>
   );
 };
