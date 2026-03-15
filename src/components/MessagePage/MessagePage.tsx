@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import './MessagePage.css';
 import StarsBackground from '../Background/StarsBackground';
 
-const MessagePage: React.FC = () => {
+interface MessagePageProps {
+  onNext: () => void;
+}
+
+const MessagePage: React.FC<MessagePageProps> = ({ onNext }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -35,8 +39,8 @@ const MessagePage: React.FC = () => {
         {isOpen && (
           <div className="final-celebration">
             <p>May Allah accept our prayers and deeds. Happy Eid!</p>
-            <button className="restart-button" onClick={() => window.location.reload()}>
-              Celebrate Again
+            <button className="restart-button highlight" onClick={onNext}>
+              Final Surprise ✨
             </button>
           </div>
         )}
