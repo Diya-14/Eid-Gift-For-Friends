@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #ffd700;
+  --bg-dark: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-light: #24243e;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Playfair Display', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-dark);
+  color: white;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}

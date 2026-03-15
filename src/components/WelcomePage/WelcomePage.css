@@ -1,0 +1,110 @@
+.welcome-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #0f0c29);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.welcome-content {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.eid-mubarak-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 6rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7),
+               0 0 20px rgba(255, 215, 0, 0.5),
+               0 0 30px rgba(255, 215, 0, 0.3);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7),
+                 0 0 20px rgba(255, 215, 0, 0.5),
+                 0 0 30px rgba(255, 215, 0, 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.9),
+                 0 0 30px rgba(255, 215, 0, 0.7),
+                 0 0 40px rgba(255, 215, 0, 0.5),
+                 0 0 50px rgba(255, 215, 0, 0.3);
+  }
+}
+
+.welcome-subtext {
+  font-size: 1.5rem;
+  color: #ffffffd0;
+  margin-bottom: 3rem;
+  letter-spacing: 2px;
+  font-family: 'Playfair Display', serif;
+}
+
+.start-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #0f0c29;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.start-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+  background-color: #ffea00;
+}
+
+.start-button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .eid-mubarak-text {
+    font-size: 4rem;
+  }
+  .welcome-subtext {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .eid-mubarak-text {
+    font-size: 3rem;
+  }
+  .welcome-subtext {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  .start-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}
