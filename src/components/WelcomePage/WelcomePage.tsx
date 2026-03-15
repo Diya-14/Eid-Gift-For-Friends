@@ -3,12 +3,16 @@ import './WelcomePage.css';
 import Lanterns from '../Lanterns/Lanterns';
 import Fireworks from '../Fireworks/Fireworks';
 
-const WelcomePage: React.FC = () => {
+interface WelcomePageProps {
+  onNext: () => void;
+}
+
+const WelcomePage: React.FC<WelcomePageProps> = ({ onNext }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const startJourney = () => {
-    // Logic for transitioning to the next page can be added here
+    // Logic for transitioning to the next page
     console.log('Starting the Eid Journey...');
     if (audioRef.current && !isPlaying) {
       audioRef.current.play().catch(error => {
@@ -16,6 +20,10 @@ const WelcomePage: React.FC = () => {
       });
       setIsPlaying(true);
     }
+    // Small delay for the music to start before transitioning
+    setTimeout(() => {
+      onNext();
+    }, 500);
   };
 
   useEffect(() => {
