@@ -5,11 +5,15 @@ import Fireworks from '../Fireworks/Fireworks';
 
 interface WelcomePageProps {
   onNext: () => void;
+  onStartAudio: () => void;
 }
 
-const WelcomePage: React.FC<WelcomePageProps> = ({ onNext }) => {
+const WelcomePage: React.FC<WelcomePageProps> = ({ onNext, onStartAudio }) => {
   const startJourney = () => {
     console.log('Starting the Eid Journey...');
+    // Attempt to start audio on user interaction - critical for mobile
+    onStartAudio();
+    
     // Small delay for the button animation before transitioning
     setTimeout(() => {
       onNext();

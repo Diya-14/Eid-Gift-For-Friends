@@ -38,63 +38,61 @@ function App() {
   // Function to attempt playing the audio
   const playAudio = React.useCallback(() => {
     const audio = audioRef.current;
-    // Only attempt to play if the audio element exists and is not already playing
-    if (audio && !isAudioPlaying) {
+    if (audio) {
+      // If audio is already playing, do nothing
+      if (!audio.paused && !audio.ended && audio.currentTime > 0) {
+        setIsAudioPlaying(true);
+        return;
+      }
+
       const playPromise = audio.play();
 
       if (playPromise !== undefined) {
         playPromise.then(_ => {
-          // Audio has started playing
           setIsAudioPlaying(true);
         })
         .catch(error => {
-          // Autoplay was prevented or failed.
-          console.error("Global audio autoplay failed:", error);
-          // Ensure the state reflects that audio is not playing
+          console.error("Audio playback failed:", error);
           setIsAudioPlaying(false);
         });
       }
     }
-  }, [isAudioPlaying]);
+  }, []);
 
-  // Effect to attempt playing audio on initial mount
-  useEffect(() => {
+  // Function to be called explicitly on user interaction (like button click)
+  const handleStartAudio = () => {
     playAudio();
-  }, [playAudio]); // Run when playAudio changes (which depends on isAudioPlaying)
+  };
 
-  // Effect to listen for user interactions and attempt to play audio if it failed initially
+  // Effect to listen for user interactions as a fallback
   useEffect(() => {
     const handleInteraction = () => {
-      // If audio is not playing and user interacts, try to play it.
-      // This helps overcome browser autoplay restrictions after the first interaction.
       if (!isAudioPlaying) {
         playAudio();
       }
     };
 
-    // Add event listeners for user interaction (covers mouse clicks, touch events, etc.)
-    // Using 'pointerdown' is a broad event that captures most interactions.
-    // 'once: true' ensures this listener is automatically removed after its first trigger.
     document.addEventListener('pointerdown', handleInteraction, { once: true, passive: true });
+    document.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
 
-    // Cleanup the event listener when the component unmounts
     return () => {
       document.removeEventListener('pointerdown', handleInteraction);
+      document.removeEventListener('touchstart', handleInteraction);
     };
-  }, [isAudioPlaying, playAudio]); // Re-run listener setup if isAudioPlaying changes
+  }, [isAudioPlaying, playAudio]);
 
   return (
     <div className="App">
       {/* Persistent audio element for the entire application */}
       <audio
-        ref={audioRef} // Attach ref to the audio element
-        // autoPlay attribute removed; playback is managed imperatively
+        ref={audioRef}
         loop
         src={eidMubarakSongUrl}
-        style={{ display: 'none' }} // Hide the default audio controls
+        playsInline // Important for mobile browsers
+        style={{ display: 'none' }}
       />
 
-      {currentPage === 'welcome' && <WelcomePage onNext={goToGame} />}
+      {currentPage === 'welcome' && <WelcomePage onNext={goToGame} onStartAudio={handleStartAudio} />}
       {currentPage === 'game' && <GamePage onNext={goToMessage} />}
       {currentPage === 'message' && <MessagePage onNext={goToGallery} />}
       {currentPage === 'gallery' && <GalleryPage onNext={goToGift} />}
