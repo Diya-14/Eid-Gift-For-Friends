@@ -1,0 +1,168 @@
+.gift-page-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: radial-gradient(circle at center, #004d40 0%, #090a0f 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  transition: background 2s ease;
+  padding: 40px 20px;
+}
+
+.gift-page-container.finale-active {
+  background: radial-gradient(circle at center, #00695c 0%, #090a0f 100%);
+}
+
+.gift-page-content {
+  z-index: 20;
+  text-align: center;
+  width: 95%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gift-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: #ffd700;
+  text-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+  margin-bottom: 20px;
+}
+
+.instruction-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+/* Festive Banner */
+.festive-banner {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #ffd700 0%, #daa520 100%);
+  color: #004d40;
+  padding: 10px 50px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  font-weight: bold;
+  border-radius: 0 0 30px 30px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+/* Grand Reveal Section */
+.grand-reveal {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.8s ease-in-out;
+  background: rgba(0, 77, 64, 0.8);
+  border-radius: 25px;
+  border: 2px solid #ffd700;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.grand-reveal.show {
+  opacity: 1;
+  max-height: 500px;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.reveal-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.big-icon {
+  font-size: 2.5rem;
+}
+
+.big-icon.featured {
+  font-size: 4rem;
+  animation: pulse-icon 2s infinite;
+}
+
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.grand-wish-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.8rem;
+  color: #ffd700;
+  margin: 0;
+}
+
+.grand-wish-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.box-container {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Finale Actions */
+.finale-actions {
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+.sub-wish {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #ffd700;
+  margin-bottom: 20px;
+}
+
+.finish-btn.trophy {
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #004d40;
+  background: linear-gradient(135deg, #ffd700 0%, #ffea00 100%);
+  border: none;
+  border-radius: 60px;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  transition: all 0.3s ease;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gift-title { font-size: 2.8rem; }
+  .grand-wish-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 480px) {
+  .gift-title { font-size: 2.2rem; }
+  .grand-wish-title { font-size: 1.8rem; }
+  .grand-wish-text { font-size: 1rem; }
+  .box-container { height: 180px; }
+  .festive-banner { font-size: 1.6rem; padding: 8px 30px; }
+}

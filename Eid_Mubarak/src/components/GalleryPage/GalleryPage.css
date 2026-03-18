@@ -1,0 +1,194 @@
+/* Gallery Container and Content */
+.gallery-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Strictly viewport height */
+  overflow: hidden; /* No scroll */
+  padding: 20px;
+  background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gallery-content {
+  z-index: 10;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.gallery-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #e0c27b;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(224, 194, 123, 0.5);
+  text-align: center;
+}
+
+/* Sequential Card Display */
+.single-card-container {
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 4/5;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.4s ease-in-out;
+}
+
+/* Entry/Exit Animations */
+.card-enter {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.card-exit {
+  opacity: 0;
+  transform: translateY(-30px) scale(0.9);
+}
+
+/* Progress Indicator */
+.gallery-progress {
+  font-family: 'Playfair Display', serif;
+  color: #e0c27b;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+/* Completion Screen */
+.gallery-completion {
+  text-align: center;
+  color: #e0c27b;
+  padding: 30px;
+  background: rgba(15, 12, 41, 0.8);
+  border-radius: 20px;
+  border: 1px solid rgba(224, 194, 123, 0.3);
+  animation: fadeIn 1s ease-out;
+}
+
+.completion-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Reusing Flip Card Styles (adjusted for single card) */
+.gallery-item {
+  width: 100%;
+  height: 100%;
+  perspective: 1500px;
+  cursor: default;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.2s ease-out;
+  transform-style: preserve-3d;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.flip-card-front {
+  background-color: #050505;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flip-card-back {
+  background-color: #0f0c29;
+  color: #e0c27b;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  border: 3px solid #e0c27b;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.flip-card-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Next Button Styling */
+.next-button {
+  padding: 14px 45px;
+  font-size: 1.2rem;
+  color: #0f0c29;
+  background-color: #e0c27b;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(224, 194, 123, 0.4);
+  transition: all 0.3s ease-out;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+}
+
+.next-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(224, 194, 123, 0.7);
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 500px) {
+  .single-card-container {
+    max-width: 280px;
+  }
+  
+  .gallery-title {
+    font-size: 2.2rem;
+  }
+  
+  .flip-card-text {
+    font-size: 1.1rem;
+  }
+}

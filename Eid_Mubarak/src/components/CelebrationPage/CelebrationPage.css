@@ -1,0 +1,132 @@
+.celebration-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.celebration-content {
+  z-index: 10;
+  text-align: center;
+  max-width: 90%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-greeting, .sub-greeting {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: #ffd700;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  animation: bounceIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sub-greeting {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  animation-delay: 0.2s;
+}
+
+@keyframes bounceIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.mascot-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  animation: slideUpIn 1s ease-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+@keyframes slideUpIn {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.simple-speech-bubble {
+  position: relative;
+  background: #ffffff;
+  color: #0f0c29;
+  border-radius: 20px;
+  padding: 20px 30px;
+  max-width: 300px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  margin-bottom: 25px;
+  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  animation-delay: 1.5s;
+  opacity: 0;
+  border: 3px solid #ffd700;
+}
+
+.simple-speech-bubble p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.simple-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 15px 15px 0;
+  border-style: solid;
+  border-color: #ffd700 transparent transparent;
+}
+
+@keyframes popUp {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.simple-emoji-character {
+  animation: float 3s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* Waving Hand Animations */
+.hand-left {
+  animation: waveLeft 1s ease-in-out infinite alternate;
+  transform-origin: 60px 60px;
+}
+
+.hand-right {
+  animation: waveRight 1s ease-in-out infinite alternate;
+  transform-origin: 60px 60px;
+}
+
+@keyframes waveLeft {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-20deg); }
+}
+
+@keyframes waveRight {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(20deg); }
+}
+
+@media (max-width: 480px) {
+  .main-greeting { font-size: 2.5rem; }
+  .speech-bubble p { font-size: 0.95rem; }
+  .simple-emoji-character svg { width: 130px; height: auto; }
+}

@@ -1,0 +1,160 @@
+.lantern-ceremony-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh; /* Changed from height to min-height */
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  overflow-x: hidden;
+  background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 2s ease;
+  padding: 40px 20px; /* Added more padding */
+}
+
+.lantern-ceremony-container.all-lit {
+  background: radial-gradient(circle at center, #2c3e50 0%, #090a0f 100%);
+}
+
+.ceremony-content {
+  z-index: 10;
+  text-align: center;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ceremony-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3.5rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+}
+
+.ceremony-instruction {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #ffffffd0;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.lanterns-display {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 2.5rem;
+  padding: 10px;
+}
+
+/* Lantern Styling */
+.elegant-lantern {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  animation: float 4s ease-in-out infinite alternate;
+  scale: 0.9;
+}
+
+.elegant-lantern:hover {
+  transform: scale(1.1);
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+.lantern-window {
+  fill: #221a0f;
+  transition: fill 0.8s ease;
+}
+
+.lit .lantern-window {
+  fill: #ffd700;
+}
+
+.inner-glow {
+  fill: #ffd700;
+  filter: blur(8px);
+  opacity: 0.6;
+  animation: flicker 2s infinite alternate;
+}
+
+@keyframes flicker {
+  from { opacity: 0.4; transform: scale(0.9); }
+  to { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* Victory State */
+.ceremony-victory {
+  animation: fadeIn 1s ease;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.victory-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: #ffd700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.next-button.elegant {
+  padding: 12px 40px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #0f0c29;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  transition: all 0.3s ease;
+  font-family: 'Playfair Display', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.next-button.elegant:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.6);
+  background-color: #ffea00;
+}
+
+/* Decorative Moon */
+.decorative-moon {
+  position: absolute;
+  top: 30px;
+  right: 10%;
+  font-size: 5rem;
+  opacity: 0.2;
+  filter: blur(1px);
+  color: #ffd700;
+  z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ceremony-title { font-size: 2.8rem; }
+  .ceremony-instruction { font-size: 1rem; }
+  .elegant-lantern { scale: 0.7; }
+  .victory-text { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .ceremony-title { font-size: 2.2rem; }
+  .lanterns-display { gap: 10px; margin-bottom: 1rem; }
+  .elegant-lantern { scale: 0.6; }
+  .ceremony-instruction { margin-bottom: 1rem; }
+  .next-button.elegant { padding: 10px 30px; font-size: 1rem; }
+}
