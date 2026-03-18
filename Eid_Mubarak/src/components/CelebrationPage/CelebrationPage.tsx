@@ -4,6 +4,31 @@ import StarsBackground from '../Background/StarsBackground';
 import Confetti from './Confetti';
 
 const CelebrationPage: React.FC = () => {
+  const handleShare = async () => {
+    const shareData = {
+      title: 'A Special Eid Gift For You 🎁',
+      text: 'Open this to reveal your special Eid Mubarak surprise! ✨',
+      url: window.location.origin,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        console.log('Shared successfully');
+      } catch (err) {
+        console.log('Error sharing:', err);
+      }
+    } else {
+      // Fallback: Copy to clipboard if Web Share API is not available
+      try {
+        await navigator.clipboard.writeText(window.location.origin);
+        alert('Gift link copied to clipboard! Share it with your friends. 🎁');
+      } catch (err) {
+        console.log('Failed to copy link:', err);
+      }
+    }
+  };
+
   return (
     <div className="celebration-container">
       <StarsBackground />
@@ -43,6 +68,10 @@ const CelebrationPage: React.FC = () => {
             </svg>
           </div>
         </div>
+
+        <button className="share-button" onClick={handleShare}>
+          Share the Joy 🎁
+        </button>
       </div>
     </div>
   );

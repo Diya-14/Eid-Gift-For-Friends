@@ -125,6 +125,39 @@
   to { transform: rotate(20deg); }
 }
 
+.share-button {
+  margin-top: 30px;
+  padding: 15px 40px;
+  font-size: 1.3rem;
+  font-family: 'Playfair Display', serif;
+  font-weight: bold;
+  color: #0f0c29;
+  background: linear-gradient(45deg, #ffd700, #e0c27b);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3), 0 0 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+  z-index: 20;
+}
+
+.share-button:hover {
+  transform: scale(1.05) translateY(-3px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.4), 0 0 25px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(45deg, #e0c27b, #ffd700);
+}
+
+.share-button:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
 @media (max-width: 480px) {
   .main-greeting { font-size: 2.5rem; }
   .speech-bubble p { font-size: 0.95rem; }
