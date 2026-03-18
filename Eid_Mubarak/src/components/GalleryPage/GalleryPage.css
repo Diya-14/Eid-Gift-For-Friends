@@ -50,17 +50,38 @@
   position: relative;
 }
 
-.loading-spinner {
+.loading-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 5;
+}
+
+.gold-pulse-loader {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #e0c27b;
+  border-radius: 50%;
+  animation: ripple 1.5s ease-out infinite;
+}
+
+.loading-text {
   color: #e0c27b;
   font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  z-index: 5;
-  text-align: center;
-  width: 100%;
+  font-size: 1.1rem;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+@keyframes ripple {
+  0% { transform: scale(0.5); opacity: 1; border-width: 8px; }
+  100% { transform: scale(1.5); opacity: 0; border-width: 2px; }
 }
 
 /* Entry/Exit Animations */

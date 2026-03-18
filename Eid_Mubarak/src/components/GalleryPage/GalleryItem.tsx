@@ -20,6 +20,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ imageUrl, text, isFlipped = f
             src={imageUrl}
             alt="Gallery Item"
             className="gallery-image"
+            style={{ display: 'block', opacity: 1 }}
             onLoad={onLoad}
           />
         </div>

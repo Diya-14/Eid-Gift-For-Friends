@@ -65,7 +65,12 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ onNext }) => {
         <div className={`single-card-container ${isEntering ? 'card-enter' : 'card-exit'}`}>
           {!isFinished && (
             <div className="gallery-item-wrapper">
-              {!imageLoaded && <div className="loading-spinner">✨ Loading Memory...</div>}
+              {!imageLoaded && (
+                <div className="loading-container">
+                  <div className="gold-pulse-loader"></div>
+                  <p className="loading-text">Preparing Memory...</p>
+                </div>
+              )}
               <GalleryItem 
                 imageUrl={customGalleryItems[activeIndex].imageUrl}
                 text={customGalleryItems[activeIndex].text}
