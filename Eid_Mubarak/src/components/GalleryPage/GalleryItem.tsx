@@ -6,9 +6,10 @@ interface GalleryItemProps {
   text: string;
   isFlipped?: boolean; // Optional: can be controlled from parent
   onClick?: () => void;
+  onLoad?: () => void;
 }
 
-const GalleryItem: React.FC<GalleryItemProps> = ({ imageUrl, text, isFlipped = false, onClick }) => {
+const GalleryItem: React.FC<GalleryItemProps> = ({ imageUrl, text, isFlipped = false, onClick, onLoad }) => {
   return (
     <div className="gallery-item" onClick={onClick}>
       <div className={`flip-card-inner ${isFlipped ? "flipped" : ""}`}>
@@ -19,6 +20,7 @@ const GalleryItem: React.FC<GalleryItemProps> = ({ imageUrl, text, isFlipped = f
             src={imageUrl}
             alt="Gallery Item"
             className="gallery-image"
+            onLoad={onLoad}
           />
         </div>
 

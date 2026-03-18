@@ -21,40 +21,39 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ onNext }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [isEntering, setIsEntering] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    if (isFinished) return;
+    if (isFinished || !imageLoaded) return;
 
-    // Sequence:
-    // 1. Image enters (isEntering = true)
-    // 2. Wait for viewing (2s)
-    // 3. Flip to show message (isFlipped = true)
-    // 4. Wait for reading (4s)
-    // 5. Exit (isEntering = false)
-    // 6. Transition to next image (activeIndex++)
-
+    // Timer logic starts only after image is loaded
     const timer1 = setTimeout(() => {
       setIsFlipped(true);
-    }, 1500); // Wait 1.5s before flipping (down from 2.5s)
+    }, 2000); // Give 2 seconds to view the photo
 
     const timer2 = setTimeout(() => {
       if (activeIndex < customGalleryItems.length - 1) {
-        setIsEntering(false); // Trigger exit animation
+        setIsEntering(false);
         setTimeout(() => {
           setActiveIndex((prev) => prev + 1);
           setIsFlipped(false);
-          setIsEntering(true); // Trigger new enter
-        }, 400); // Duration of exit animation (down from 800ms)
+          setIsEntering(true);
+          setImageLoaded(false); // Reset for next image
+        }, 400);
       } else {
         setIsFinished(true);
       }
-    }, 4500); // Total time per card: 1.5s (view) + 3s (read) (down from 6.5s)
+    }, 6000); // More time to view and read (2s view + 4s read)
 
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
-  }, [activeIndex, isFinished]);
+  }, [activeIndex, isFinished, imageLoaded]);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   return (
     <div className="gallery-container">
@@ -65,11 +64,15 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ onNext }) => {
         
         <div className={`single-card-container ${isEntering ? 'card-enter' : 'card-exit'}`}>
           {!isFinished && (
-            <GalleryItem 
-              imageUrl={customGalleryItems[activeIndex].imageUrl}
-              text={customGalleryItems[activeIndex].text}
-              isFlipped={isFlipped}
-            />
+            <div className="gallery-item-wrapper">
+              {!imageLoaded && <div className="loading-spinner">✨ Loading Memory...</div>}
+              <GalleryItem 
+                imageUrl={customGalleryItems[activeIndex].imageUrl}
+                text={customGalleryItems[activeIndex].text}
+                isFlipped={isFlipped}
+                onLoad={handleImageLoad}
+              />
+            </div>
           )}
           {isFinished && (
             <div className="gallery-completion">
